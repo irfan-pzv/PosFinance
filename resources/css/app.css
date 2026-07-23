@@ -6,6 +6,95 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --color-pos-orange: #FF6600;
+    --color-pos-orange-hover: #E55C00;
+    --color-pos-navy: #002B49;
+    --color-pos-navy-dark: #001F35;
+    --color-bg-body: #F4F6F9;
+}
+
+:root {
+    --pos-orange: #FF6600;
+    --pos-navy: #002B49;
+}
+
+html, body {
+    overscroll-behavior: none;
+    overscroll-behavior-y: none;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: #F4F6F9;
+    color: #1E293B;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* Card Glow & Glassmorphism Utilities */
+.glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.kpi-card {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+}
+
+/* Sidebar Fixed Overlay Drawer (Prevents Content Shifting) */
+#sidebar {
+    position: fixed;
+    top: 65px;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    height: calc(100vh - 65px);
+    z-index: 50;
+    transform: translateX(-100%);
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.sidebar-open #sidebar {
+    transform: translateX(0);
+}
+
+#sidebarBackdrop {
+    position: fixed;
+    inset: 0;
+    top: 65px;
+    background-color: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 40;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.sidebar-open #sidebarBackdrop {
+    display: block;
+    opacity: 1;
 }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="data:,">
     <title>Login - POS FINANCE | PT Pos Indonesia</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,7 +271,7 @@
                     </svg>
                 </div>
                 <h1 class="brand-title">POS <span>FINANCE</span></h1>
-                <p class="brand-subtitle">Financial Command Center</p>
+                <p class="brand-subtitle">Regional IV - Semarang Selatan</p>
             </div>
 
             <!-- Validation Error Alert -->
@@ -334,7 +335,7 @@
 
 
         <div class="footer-text">
-            &copy; 2026 <strong>PT Pos Indonesia (Persero)</strong>. All rights reserved.
+            &copy; 2026 <strong>PT Pos Indonesia - Regional IV Semarang Selatan</strong>. All rights reserved.
         </div>
     </div>
 
