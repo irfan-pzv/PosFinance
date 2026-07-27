@@ -24,9 +24,6 @@ class Finance extends Model
         'notes',
     ];
 
-    /**
-     * Get the unit that owns the financial record.
-     */
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id');

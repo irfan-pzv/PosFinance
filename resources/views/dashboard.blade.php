@@ -51,7 +51,9 @@
             <div class="flex justify-between items-start mb-3">
                 <div>
                     <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Total Pendapatan (YTD)</span>
-                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">Rp 246,7 M</div>
+                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">
+                        Rp {{ number_format($totalRevenue / 1000000000, 1, ',', '.') }} M
+                    </div>
                 </div>
                 <div class="w-12 h-12 rounded-2xl bg-orange-50 text-[#FF6600] border border-orange-100 flex items-center justify-center text-2xl shrink-0 shadow-sm">
                     <i class="bi bi-currency-dollar"></i>
@@ -59,9 +61,9 @@
             </div>
             <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
                 <span class="text-emerald-600 font-bold flex items-center gap-1">
-                    <i class="bi bi-arrow-up-right-circle-fill"></i> +11.8%
+                    <i class="bi bi-arrow-up-right-circle-fill"></i> {{ $overallAchievement }}%
                 </span>
-                <span class="text-slate-400 font-medium">vs RKAP Semarang</span>
+                <span class="text-slate-400 font-medium">Pencapaian RKAP</span>
             </div>
         </div>
 
@@ -71,7 +73,9 @@
             <div class="flex justify-between items-start mb-3">
                 <div>
                     <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">EBITDA Regional IV</span>
-                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">Rp 42,5 M</div>
+                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">
+                        Rp {{ number_format($ebitda / 1000000000, 1, ',', '.') }} M
+                    </div>
                 </div>
                 <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center text-2xl shrink-0 shadow-sm">
                     <i class="bi bi-graph-up-arrow"></i>
@@ -91,7 +95,9 @@
             <div class="flex justify-between items-start mb-3">
                 <div>
                     <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Laba Bersih Operasional</span>
-                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">Rp 21,8 M</div>
+                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">
+                        Rp {{ number_format($netProfit / 1000000000, 1, ',', '.') }} M
+                    </div>
                 </div>
                 <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center text-2xl shrink-0 shadow-sm">
                     <i class="bi bi-piggy-bank"></i>
@@ -111,7 +117,9 @@
             <div class="flex justify-between items-start mb-3">
                 <div>
                     <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Kas Operasional</span>
-                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">Rp 58,4 M</div>
+                    <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">
+                        Rp {{ number_format($cashPosition / 1000000000, 1, ',', '.') }} M
+                    </div>
                 </div>
                 <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center text-2xl shrink-0 shadow-sm">
                     <i class="bi bi-safe"></i>
@@ -233,162 +241,73 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    
-                    <!-- Row 1 -->
-                    <tr class="hover:bg-orange-50/30 transition-colors">
-                        <td class="py-4 px-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-orange-100 text-[#FF6600] font-bold flex items-center justify-center text-xs">
-                                    U1
-                                </div>
-                                <div>
-                                    <div class="font-bold text-slate-800 text-xs">Kantor Pos Utama Semarang (Pleburan)</div>
-                                    <div class="text-[10px] text-slate-400">Jl. Pleburan / Semarang Selatan</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-4 font-medium text-slate-600">Rp 85,0 M</td>
-                        <td class="py-4 px-4 font-bold text-slate-800">Rp 89,2 M</td>
-                        <td class="py-4 px-4 font-bold text-emerald-600">+Rp 4,2 M</td>
-                        <td class="py-4 px-4">
-                            <div class="space-y-1">
-                                <div class="text-[11px] font-bold text-emerald-600">104.9%</div>
-                                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-emerald-500 h-full rounded-full w-full"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-5">
-                            <span class="px-3 py-1 text-[11px] font-bold rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Sangat Baik
-                            </span>
-                        </td>
-                    </tr>
+                    @forelse($units as $unit)
+                        @php
+                            $finance = $unit->finances->first();
+                            $target = $finance->target_rkap ?? 0;
+                            $realization = $finance->realization ?? 0;
+                            $variance = $finance->variance ?? 0;
+                            $achievement = $finance->achievement ?? 0;
+                            $status = $finance->performance_status ?? 'On Track';
 
-                    <!-- Row 2 -->
-                    <tr class="hover:bg-orange-50/30 transition-colors">
-                        <td class="py-4 px-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-xs">
-                                    U2
-                                </div>
-                                <div>
-                                    <div class="font-bold text-slate-800 text-xs">Unit Kurir & Kargo Express</div>
-                                    <div class="text-[10px] text-slate-400">Pengiriman Paket & Logistik Semarang</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-4 font-medium text-slate-600">Rp 62,0 M</td>
-                        <td class="py-4 px-4 font-bold text-slate-800">Rp 65,5 M</td>
-                        <td class="py-4 px-4 font-bold text-emerald-600">+Rp 3,5 M</td>
-                        <td class="py-4 px-4">
-                            <div class="space-y-1">
-                                <div class="text-[11px] font-bold text-emerald-600">105.6%</div>
-                                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-emerald-500 h-full rounded-full w-full"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-5">
-                            <span class="px-3 py-1 text-[11px] font-bold rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Sangat Baik
-                            </span>
-                        </td>
-                    </tr>
+                            $statusClasses = match(strtolower($status)) {
+                                'sangat baik' => ['bg' => 'bg-emerald-50', 'text' => 'text-emerald-700', 'border' => 'border-emerald-200', 'dot' => 'bg-emerald-500'],
+                                'on track' => ['bg' => 'bg-blue-50', 'text' => 'text-blue-700', 'border' => 'border-blue-200', 'dot' => 'bg-blue-500'],
+                                'perlu perhatian', 'evaluasi' => ['bg' => 'bg-amber-50', 'text' => 'text-amber-700', 'border' => 'border-amber-200', 'dot' => 'bg-amber-500'],
+                                default => ['bg' => 'bg-slate-50', 'text' => 'text-slate-700', 'border' => 'border-slate-200', 'dot' => 'bg-slate-500'],
+                            };
 
-                    <!-- Row 3 -->
-                    <tr class="hover:bg-orange-50/30 transition-colors">
-                        <td class="py-4 px-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 font-bold flex items-center justify-center text-xs">
-                                    U3
+                            $colors = [
+                                ['bg' => 'bg-orange-100', 'text' => 'text-[#FF6600]'],
+                                ['bg' => 'bg-blue-100', 'text' => 'text-blue-600'],
+                                ['bg' => 'bg-indigo-100', 'text' => 'text-indigo-600'],
+                                ['bg' => 'bg-amber-100', 'text' => 'text-amber-600'],
+                                ['bg' => 'bg-purple-100', 'text' => 'text-purple-600'],
+                            ];
+                            $avatarTheme = $colors[$loop->index % count($colors)];
+                        @endphp
+                        <tr class="hover:bg-orange-50/30 transition-colors">
+                            <td class="py-4 px-5">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg {{ $avatarTheme['bg'] }} {{ $avatarTheme['text'] }} font-bold flex items-center justify-center text-xs">
+                                        {{ $unit->code }}
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-800 text-xs">{{ $unit->name }}</div>
+                                        <div class="text-[10px] text-slate-400">{{ $unit->description }}</div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="font-bold text-slate-800 text-xs">Unit Layanan PosPay & Jasa Keuangan</div>
-                                    <div class="text-[10px] text-slate-400">Pembayaran, Remitansi & Keuangan</div>
+                            </td>
+                            <td class="py-4 px-4 font-medium text-slate-600">
+                                Rp {{ number_format($target / 1000000000, 1, ',', '.') }} M
+                            </td>
+                            <td class="py-4 px-4 font-bold text-slate-800">
+                                Rp {{ number_format($realization / 1000000000, 1, ',', '.') }} M
+                            </td>
+                            <td class="py-4 px-4 font-bold {{ $variance >= 0 ? 'text-emerald-600' : 'text-red-600' }}">
+                                {{ $variance >= 0 ? '+' : '-' }}Rp {{ number_format(abs($variance) / 1000000000, 1, ',', '.') }} M
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="space-y-1">
+                                    <div class="text-[11px] font-bold {{ $achievement >= 100 ? 'text-emerald-600' : 'text-amber-600' }}">
+                                        {{ number_format($achievement, 1, ',', '.') }}%
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                                        <div class="{{ $achievement >= 100 ? 'bg-emerald-500' : 'bg-amber-500' }} h-full rounded-full" style="width: {{ min(100, $achievement) }}%;"></div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-4 font-medium text-slate-600">Rp 48,0 M</td>
-                        <td class="py-4 px-4 font-bold text-slate-800">Rp 49,1 M</td>
-                        <td class="py-4 px-4 font-bold text-emerald-600">+Rp 1,1 M</td>
-                        <td class="py-4 px-4">
-                            <div class="space-y-1">
-                                <div class="text-[11px] font-bold text-blue-600">102.3%</div>
-                                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-blue-600 h-full rounded-full w-full"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-5">
-                            <span class="px-3 py-1 text-[11px] font-bold rounded-lg bg-blue-50 text-blue-700 border border-blue-200 inline-flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> On Track
-                            </span>
-                        </td>
-                    </tr>
-
-                    <!-- Row 4 -->
-                    <tr class="hover:bg-orange-50/30 transition-colors">
-                        <td class="py-4 px-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 font-bold flex items-center justify-center text-xs">
-                                    U4
-                                </div>
-                                <div>
-                                    <div class="font-bold text-slate-800 text-xs">Unit Keagenan & Loket Mitra</div>
-                                    <div class="text-[10px] text-slate-400">Kemitraan Agen Pos Semarang Selatan</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-4 font-medium text-slate-600">Rp 25,0 M</td>
-                        <td class="py-4 px-4 font-bold text-slate-800">Rp 24,6 M</td>
-                        <td class="py-4 px-4 font-bold text-red-600">-Rp 0,4 M</td>
-                        <td class="py-4 px-4">
-                            <div class="space-y-1">
-                                <div class="text-[11px] font-bold text-amber-600">98.4%</div>
-                                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-amber-500 h-full rounded-full" style="width: 98.4%;"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-5">
-                            <span class="px-3 py-1 text-[11px] font-bold rounded-lg bg-amber-50 text-amber-700 border border-amber-200 inline-flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Evaluasi
-                            </span>
-                        </td>
-                    </tr>
-
-                    <!-- Row 5 -->
-                    <tr class="hover:bg-orange-50/30 transition-colors">
-                        <td class="py-4 px-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 font-bold flex items-center justify-center text-xs">
-                                    U5
-                                </div>
-                                <div>
-                                    <div class="font-bold text-slate-800 text-xs">Unit Pengelolaan Aset & Properti</div>
-                                    <div class="text-[10px] text-slate-400">Sewa Lahan & Gedung Pos Semarang</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-4 font-medium text-slate-600">Rp 18,0 M</td>
-                        <td class="py-4 px-4 font-bold text-slate-800">Rp 18,3 M</td>
-                        <td class="py-4 px-4 font-bold text-emerald-600">+Rp 0,3 M</td>
-                        <td class="py-4 px-4">
-                            <div class="space-y-1">
-                                <div class="text-[11px] font-bold text-blue-600">101.7%</div>
-                                <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-blue-600 h-full rounded-full w-full"></div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="py-4 px-5">
-                            <span class="px-3 py-1 text-[11px] font-bold rounded-lg bg-blue-50 text-blue-700 border border-blue-200 inline-flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> On Track
-                            </span>
-                        </td>
-                    </tr>
-
+                            </td>
+                            <td class="py-4 px-5">
+                                <span class="px-3 py-1 text-[11px] font-bold rounded-lg {{ $statusClasses['bg'] }} {{ $statusClasses['text'] }} border {{ $statusClasses['border'] }} inline-flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $statusClasses['dot'] }}"></span> {{ $status }}
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="py-8 text-center text-slate-400 text-xs">Belum ada data unit kerja.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

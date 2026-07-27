@@ -43,7 +43,7 @@ class AuthController extends Controller
         return view('dashboard');
     }
 
-    // Handle logout.
+    // Handle logout
     public function logout(Request $request)
     {
         Auth::logout();
