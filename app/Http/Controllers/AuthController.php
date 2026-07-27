@@ -7,18 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Show the login form.
-     */
+    // Show the login form.
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-
-    /**
-     * Handle login attempt.
-     */
+    // Handle login attempt.
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -42,17 +37,13 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    /**
-     * Display the dashboard page upon successful login.
-     */
+    // Display the dashboard page upon successful login.
     public function dashboard()
     {
         return view('dashboard');
     }
 
-    /**
-     * Handle logout.
-     */
+    // Handle logout.
     public function logout(Request $request)
     {
         Auth::logout();
