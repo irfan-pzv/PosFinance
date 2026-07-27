@@ -64,7 +64,7 @@ body {
     box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
 }
 
-/* Sidebar Fixed Overlay Drawer (Prevents Content Shifting) */
+/* Sidebar Fixed Overlay Drawer */
 #sidebar {
     position: fixed;
     top: 65px;
@@ -72,7 +72,7 @@ body {
     left: 0;
     width: 260px;
     height: calc(100vh - 65px);
-    z-index: 50;
+    z-index: 45;
     transform: translateX(-100%);
     box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -86,9 +86,8 @@ body.sidebar-open #sidebar {
     position: fixed;
     inset: 0;
     top: 65px;
-    background-color: rgba(15, 23, 42, 0.45);
-    backdrop-filter: blur(3px);
-    z-index: 40;
+    background-color: rgba(15, 23, 42, 0.35);
+    z-index: 30;
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;

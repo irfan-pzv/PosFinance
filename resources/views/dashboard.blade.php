@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Executive Financial Summary - Regional IV Semarang Selatan')
+@section('title', 'Executive Financial Summary - Pos Indonesia Regional 4 Semarang')
 
 @section('content')
 
@@ -9,18 +9,18 @@
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="px-2.5 py-0.5 rounded-md bg-orange-100 text-[#FF6600] font-bold text-[10px] uppercase tracking-wider">
-                    Regional IV Semarang Selatan
+                    Pos Indonesia Regional 4 Semarang
                 </span>
                 <span class="text-slate-400 text-xs">•</span>
                 <span class="text-slate-500 text-xs font-semibold flex items-center gap-1">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> SAP ERP Reg. IV Sync
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> SAP ERP Reg. 4 Sync
                 </span>
             </div>
             <h1 class="text-2xl lg:text-3xl font-extrabold text-[#002B49] tracking-tight">
                 Executive Financial Summary
             </h1>
             <p class="text-slate-500 text-xs mt-1">
-                Command Center Kinerja & Realisasi Anggaran RKAP Kantor Pos Indonesia Regional IV Semarang Selatan
+                Command Center Kinerja & Realisasi Anggaran RKAP Pos Indonesia Kantor Regional 4 Semarang (Jl. Sisingamangaraja No.45)
             </p>
         </div>
 
@@ -37,7 +37,7 @@
             </button>
             <button type="button" 
                     class="bg-[#FF6600] hover:bg-[#E55C00] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-orange-500/20 transition-all hover:scale-[1.02]">
-                <i class="bi bi-file-earmark-excel"></i> Laporan RKAP Semarang
+                <i class="bi bi-file-earmark-excel"></i> Laporan RKAP Regional 4
             </button>
         </div>
     </div>
@@ -72,7 +72,7 @@
             <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full pointer-events-none"></div>
             <div class="flex justify-between items-start mb-3">
                 <div>
-                    <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">EBITDA Regional IV</span>
+                    <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">EBITDA Regional 4</span>
                     <div class="text-2xl lg:text-3xl font-black text-slate-900 mt-1">
                         Rp {{ number_format($ebitda / 1000000000, 1, ',', '.') }} M
                     </div>
@@ -107,7 +107,7 @@
                 <span class="text-blue-600 font-bold flex items-center gap-1">
                     <i class="bi bi-check-circle-fill"></i> 103.4%
                 </span>
-                <span class="text-slate-400 font-medium">Target Semarang</span>
+                <span class="text-slate-400 font-medium">Target Regional 4</span>
             </div>
         </div>
 
@@ -127,7 +127,7 @@
             </div>
             <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
                 <span class="text-purple-600 font-bold flex items-center gap-1">
-                    <i class="bi bi-shield-check"></i> Saldo Kas Semarang Aman
+                    <i class="bi bi-shield-check"></i> Saldo Kas Regional 4 Aman
                 </span>
                 <span class="text-slate-400 font-medium">Likuiditas 1.52x</span>
             </div>
@@ -139,9 +139,9 @@
     <div class="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm mb-6">
         <div class="flex items-center justify-between mb-2">
             <h4 class="font-bold text-xs uppercase tracking-wider text-slate-600 flex items-center gap-2">
-                <i class="bi bi-pie-chart-fill text-[#FF6600]"></i> Kontribusi Pendapatan Unit Semarang Selatan
+                <i class="bi bi-pie-chart-fill text-[#FF6600]"></i> Kontribusi Pendapatan Unit Regional 4 Semarang
             </h4>
-            <span class="text-slate-400 text-xs">Total 100% Realisasi Semarang (YTD)</span>
+            <span class="text-slate-400 text-xs">Total 100% Realisasi Regional 4 (YTD)</span>
         </div>
         <div class="w-full bg-slate-100 rounded-xl h-3 flex overflow-hidden p-0.5">
             <div class="bg-[#FF6600] h-full transition-all" style="width: 58%;" title="Kurir & Kargo Express: 58%"></div>
@@ -175,9 +175,9 @@
             <div class="p-4 sm:p-5 border-b border-slate-100 flex justify-between items-center flex-wrap gap-2">
                 <div>
                     <h3 class="font-bold text-base text-[#002B49] flex items-center gap-2">
-                        <i class="bi bi-bar-chart-line-fill text-[#FF6600]"></i> Tren Omset Bulanan Regional IV Semarang (2026)
+                        <i class="bi bi-bar-chart-line-fill text-[#FF6600]"></i> Tren Omset Bulanan Regional 4 Semarang (2026)
                     </h3>
-                    <p class="text-slate-400 text-xs mt-0.5">Perkembangan pendapatan Kurir, PosPay & Loket Mitra Semarang Selatan</p>
+                    <p class="text-slate-400 text-xs mt-0.5">Perkembangan pendapatan Kurir, PosPay & Loket Mitra Regional 4 Semarang</p>
                 </div>
                 <span class="bg-slate-100 text-slate-600 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-slate-200/60">
                     Dalam Juta Rupiah
@@ -193,9 +193,9 @@
             <div class="p-4 sm:p-5 border-b border-slate-100 flex justify-between items-center">
                 <div>
                     <h3 class="font-bold text-base text-[#002B49] flex items-center gap-2">
-                        <i class="bi bi-pie-chart-fill text-red-500"></i> Struktur OpEx Semarang
+                        <i class="bi bi-pie-chart-fill text-red-500"></i> Struktur OpEx Regional 4
                     </h3>
-                    <p class="text-slate-400 text-xs mt-0.5">Proporsi Beban Operasional Kantor Pos Semarang</p>
+                    <p class="text-slate-400 text-xs mt-0.5">Proporsi Beban Operasional Kantor Regional 4 Semarang</p>
                 </div>
             </div>
             <div class="p-4 sm:p-5 flex-grow flex items-center justify-center relative">
@@ -212,9 +212,9 @@
         <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <h3 class="font-bold text-base text-[#002B49] flex items-center gap-2">
-                    <i class="bi bi-building text-[#FF6600]"></i> Kinerja Unit Operasional Semarang Selatan
+                    <i class="bi bi-building text-[#FF6600]"></i> Kinerja Unit Operasional Regional 4 Semarang
                 </h3>
-                <p class="text-slate-400 text-xs mt-0.5">Realisasi Anggaran Per Divisi/Unit Kerja Pos Indonesia Semarang Selatan</p>
+                <p class="text-slate-400 text-xs mt-0.5">Realisasi Anggaran Per Divisi/Unit Kerja Pos Indonesia Regional 4 Semarang</p>
             </div>
 
             <!-- Search Table -->

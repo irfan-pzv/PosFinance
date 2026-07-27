@@ -271,7 +271,7 @@
                     </svg>
                 </div>
                 <h1 class="brand-title">POS <span>FINANCE</span></h1>
-                <p class="brand-subtitle">Regional IV - Semarang Selatan</p>
+                <p class="brand-subtitle">Pos Indonesia Regional 4 Semarang</p>
             </div>
 
             <!-- Validation Error Alert -->
@@ -335,7 +335,7 @@
 
 
         <div class="footer-text">
-            &copy; 2026 <strong>PT Pos Indonesia - Regional IV Semarang Selatan</strong>. All rights reserved.
+            &copy; 2026 <strong>PT Pos Indonesia - Kantor Regional 4 Semarang</strong>. All rights reserved.
         </div>
     </div>
 

@@ -9,28 +9,33 @@
         </div>
 
         <nav class="space-y-1">
-            <a href="#" 
-               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl bg-[#FF6600] text-white shadow-md shadow-orange-500/20 transition-all">
+            <a href="{{ route('dashboard') }}" 
+               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl {{ request()->routeIs('dashboard') ? 'bg-[#FF6600] text-white shadow-md shadow-orange-500/20' : 'text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600]' }} transition-all group">
                 <div class="flex items-center gap-3">
-                    <i class="bi bi-speedometer2 text-base"></i>
+                    <i class="bi bi-speedometer2 text-base {{ request()->routeIs('dashboard') ? 'text-white' : 'text-slate-400 group-hover:text-[#FF6600]' }}"></i>
                     <span>Executive Summary</span>
                 </div>
-                <i class="bi bi-chevron-right text-[10px] opacity-75"></i>
+                @if(request()->routeIs('dashboard'))
+                    <i class="bi bi-chevron-right text-[10px] opacity-75"></i>
+                @endif
             </a>
 
-            <a href="#" 
-               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600] transition-all group">
+            <a href="{{ route('revenue-streams.index') }}" 
+               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl {{ request()->routeIs('revenue-streams.*') ? 'bg-[#FF6600] text-white shadow-md shadow-orange-500/20' : 'text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600]' }} transition-all group">
                 <div class="flex items-center gap-3">
-                    <i class="bi bi-graph-up-arrow text-base text-slate-400 group-hover:text-[#FF6600] transition-colors"></i>
+                    <i class="bi bi-graph-up-arrow text-base {{ request()->routeIs('revenue-streams.*') ? 'text-white' : 'text-slate-400 group-hover:text-[#FF6600]' }}"></i>
                     <span>Revenue Streams</span>
                 </div>
+                @if(request()->routeIs('revenue-streams.*'))
+                    <i class="bi bi-chevron-right text-[10px] opacity-75"></i>
+                @endif
             </a>
 
             <a href="#" 
                class="flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600] transition-all group">
                 <div class="flex items-center gap-3">
                     <i class="bi bi-building text-base text-slate-400 group-hover:text-[#FF6600] transition-colors"></i>
-                    <span>Unit Semarang Selatan</span>
+                    <span>Unit Regional 4</span>
                 </div>
             </a>
 

@@ -26,4 +26,10 @@ class Unit extends Model
     {
         return $this->hasMany(Finance::class, 'unit_id');
     }
+
+    // Get the revenue streams for the unit.
+    public function revenueStreams(): HasMany
+    {
+        return $this->hasMany(RevenueStream::class, 'unit_id');
+    }
 }

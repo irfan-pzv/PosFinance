@@ -1,4 +1,4 @@
-<header class="bg-[#002B49] border-b-4 border-[#FF6600] sticky top-0 z-40 shadow-lg">
+<header class="bg-[#002B49] border-b-4 border-[#FF6600] sticky top-0 z-50 shadow-lg">
     <div class="max-w-full px-4 lg:px-6 py-2.5 flex items-center justify-between gap-4">
         
         <!-- Left: Brand & Sidebar Toggle -->
@@ -17,10 +17,10 @@
                     <span class="text-lg tracking-tight text-white font-extrabold leading-none flex items-center gap-1.5">
                         FINANCE 
                         <span class="bg-white/10 text-white/80 text-[10px] font-semibold px-2 py-0.5 rounded-full hidden sm:inline-block border border-white/10">
-                            REGIONAL IV SEMARANG
+                            REGIONAL 4 SEMARANG
                         </span>
                     </span>
-                    <span class="text-[10px] text-white/60 font-medium tracking-wide">POS INDONESIA - SEMARANG SELATAN</span>
+                    <span class="text-[10px] text-white/60 font-medium tracking-wide">POS INDONESIA - JL. SISINGAMANGARAJA NO.45</span>
                 </div>
             </a>
         </div>
@@ -31,11 +31,11 @@
             <!-- Filter Unit Operasional Semarang -->
             <div class="hidden lg:block relative">
                 <select class="bg-slate-900/90 text-white text-xs border border-slate-700/80 rounded-xl px-3 py-1.5 pr-8 focus:outline-none focus:border-[#FF6600] focus:ring-1 focus:ring-[#FF6600] transition-colors appearance-none cursor-pointer">
-                    <option selected>Semarang Selatan (Seluruh Unit)</option>
-                    <option>Kantor Pos Semarang Selatan (Pleburan)</option>
-                    <option>KCU Semarang (Kantor Utama)</option>
-                    <option>Unit Kurir & Logistik Semarang</option>
-                    <option>Unit Layanan PosPay Semarang</option>
+                    <option selected>Regional 4 Semarang (Seluruh Unit)</option>
+                    <option>Kantor Regional 4 (Jl. Sisingamangaraja No.45)</option>
+                    <option>Unit Kurir & Kargo Express Reg. 4</option>
+                    <option>Unit Layanan PosPay & Keuangan Reg. 4</option>
+                    <option>Unit Keagenan & Loket Mitra Reg. 4</option>
                 </select>
                 <i class="bi bi-chevron-down absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 text-[10px] pointer-events-none"></i>
             </div>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="text-left hidden md:block">
                         <div class="font-bold text-white text-xs leading-tight">{{ Auth::user()->name ?? 'Administrator' }}</div>
-                        <div class="text-white/60 text-[10px]">Keuangan Reg. IV Semarang</div>
+                        <div class="text-white/60 text-[10px]">Keuangan Regional 4 Semarang</div>
                     </div>
                     <i class="bi bi-chevron-down text-white/60 text-[10px] hidden md:block"></i>
                 </button>
@@ -71,7 +71,7 @@
                     <div class="px-4 py-2.5 border-b border-slate-100 bg-slate-50/50 rounded-t-2xl">
                         <p class="font-bold text-slate-800 text-xs">{{ Auth::user()->name ?? 'Administrator' }}</p>
                         <p class="text-slate-400 text-[11px] truncate">{{ Auth::user()->email ?? 'admin@posfinance.co.id' }}</p>
-                        <p class="text-[#FF6600] font-semibold text-[10px] mt-0.5">Kantor Pos Regional IV Semarang</p>
+                        <p class="text-[#FF6600] font-semibold text-[10px] mt-0.5">Pos Indonesia Regional 4 Semarang</p>
                     </div>
                     <a href="#" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors">
                         <i class="bi bi-person text-slate-400 text-sm"></i> Profil Pengguna
