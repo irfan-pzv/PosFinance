@@ -31,12 +31,15 @@
                 @endif
             </a>
 
-            <a href="#" 
-               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600] transition-all group">
+            <a href="{{ route('units.index') }}" 
+               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl {{ request()->routeIs('units.*') ? 'bg-[#FF6600] text-white shadow-md shadow-orange-500/20' : 'text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600]' }} transition-all group">
                 <div class="flex items-center gap-3">
-                    <i class="bi bi-building text-base text-slate-400 group-hover:text-[#FF6600] transition-colors"></i>
+                    <i class="bi bi-building text-base {{ request()->routeIs('units.*') ? 'text-white' : 'text-slate-400 group-hover:text-[#FF6600]' }}"></i>
                     <span>Unit Regional 4</span>
                 </div>
+                @if(request()->routeIs('units.*'))
+                    <i class="bi bi-chevron-right text-[10px] opacity-75"></i>
+                @endif
             </a>
 
             <a href="#" 
