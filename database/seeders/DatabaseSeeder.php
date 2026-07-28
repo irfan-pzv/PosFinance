@@ -29,6 +29,14 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        User::updateOrCreate(
+            ['email' => 'irfan@posfinance.co.id'],
+            [
+                'name' => 'Irfan',
+                'password' => bcrypt('password')
+            ]
+        );
+
         $this->call([
             UnitSeeder::class,
             FinanceSeeder::class,
