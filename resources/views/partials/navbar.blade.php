@@ -80,11 +80,8 @@
                     <a href="{{ route('profile.edit') }}" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors {{ request()->routeIs('profile.*') ? 'bg-orange-50/70 text-[#FF6600] font-bold' : '' }}">
                         <i class="bi bi-person text-[#FF6600] text-sm"></i> Profil Pengguna
                     </a>
-                    <a href="#" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors">
-                        <i class="bi bi-sliders text-slate-400 text-sm"></i> Pengaturan Sistem
-                    </a>
-                    <a href="#" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors">
-                        <i class="bi bi-shield-check text-slate-400 text-sm"></i> Audit Log & Akses
+                    <a href="{{ route('audit-logs.index') }}" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors {{ request()->routeIs('audit-logs.*') ? 'bg-orange-50/70 text-[#FF6600] font-bold' : '' }}">
+                        <i class="bi bi-shield-check text-[#FF6600] text-sm"></i> Audit Log & Akses
                     </a>
                     <div class="border-t border-slate-100 my-1.5"></div>
                     <form action="{{ route('logout') }}" method="POST">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,18 +11,14 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user profile page.
-     */
+    // Display the user profile page.
     public function edit()
     {
         $user = Auth::user();
         return view('profile.index', compact('user'));
     }
 
-    /**
-     * Update the user profile information.
-     */
+    // Update the user profile information.
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -55,12 +52,12 @@ class ProfileController extends Controller
 
         $user->update($validated);
 
+        AuditLog::record('UPDATE_PROFILE', 'Pengguna memperbarui informasi profil personal & pekerjaan.');
+
         return back()->with('status', 'profile-updated');
     }
 
-    /**
-     * Update the user's password.
-     */
+    // Update the user's password.
     public function updatePassword(Request $request)
     {
         $validated = $request->validate([
@@ -85,12 +82,12 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        AuditLog::record('CHANGE_PASSWORD', 'Pengguna memperbarui password akun keamanan.');
+
         return back()->with('status', 'password-updated');
     }
 
-    /**
-     * Remove the user's avatar image.
-     */
+    // Remove the user's avatar image.
     public function destroyAvatar()
     {
         $user = Auth::user();
@@ -100,6 +97,8 @@ class ProfileController extends Controller
         }
 
         $user->update(['avatar' => null]);
+
+        AuditLog::record('DELETE_AVATAR', 'Pengguna menghapus foto profil avatar.');
 
         return back()->with('status', 'avatar-deleted');
     }

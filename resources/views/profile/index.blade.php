@@ -98,7 +98,7 @@
         </div>
     @endif
 
-    <!-- Profile Header Card (Sleek corporate layout, 100% no overlap) -->
+    <!-- Profile Header Card -->
     <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md overflow-hidden">
         <!-- Banner -->
         <div class="h-20 bg-gradient-to-r from-[#002B49] via-[#003860] to-[#FF6600] px-6 flex items-center justify-between">
@@ -173,13 +173,13 @@
         </div>
     </div>
 
-    <!-- Main Content Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content Grid with Symmetrical Height Alignment -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         <!-- Left 2 Columns: Edit Profile Form -->
-        <div class="lg:col-span-2 space-y-6">
+        <div class="lg:col-span-2 flex flex-col">
 
-            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md p-6">
+            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md p-6 flex-1 flex flex-col">
                 <div class="border-b border-slate-100 pb-4 mb-6">
                     <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
                         <i class="bi bi-person-lines-fill text-[#FF6600]"></i> Informasi Personal & Pekerjaan
@@ -187,102 +187,104 @@
                     <p class="text-xs text-slate-500 mt-0.5">Perbarui nama lengkap, kontak, jabatan, dan foto profil akun Anda.</p>
                 </div>
 
-                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="flex-1 flex flex-col justify-between space-y-6">
                     @csrf
                     @method('PUT')
 
-                    <!-- Avatar Box -->
-                    <div class="p-4 bg-slate-50/80 border border-slate-200/70 rounded-2xl space-y-2">
-                        <label class="block text-xs font-bold text-slate-700">Foto Profil (Avatar)</label>
-                        <div class="flex flex-col sm:flex-row items-center gap-4">
-                            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#FF6600] to-amber-500 text-white flex items-center justify-center font-bold text-xl overflow-hidden shrink-0 border-2 border-white shadow-sm">
-                                @if($user->avatar_url)
-                                    <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
-                                @else
-                                    {{ strtoupper(substr($user->name, 0, 1)) }}
+                    <div class="space-y-5">
+                        <!-- Avatar Box -->
+                        <div class="p-4 bg-slate-50/80 border border-slate-200/70 rounded-2xl space-y-2">
+                            <label class="block text-xs font-bold text-slate-700">Foto Profil (Avatar)</label>
+                            <div class="flex flex-col sm:flex-row items-center gap-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#FF6600] to-amber-500 text-white flex items-center justify-center font-bold text-xl overflow-hidden shrink-0 border-2 border-white shadow-sm">
+                                    @if($user->avatar_url)
+                                        <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    @endif
+                                </div>
+                                <div class="flex-1 w-full space-y-1">
+                                    <input type="file" name="avatar" id="avatar" accept="image/png, image/jpeg, image/webp"
+                                           class="block w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#002B49] file:text-white hover:file:bg-[#FF6600] file:transition-colors cursor-pointer">
+                                    <p class="text-[10px] text-slate-400">Format: JPG, PNG, WEBP (Maksimal 2MB).</p>
+                                </div>
+                                @if($user->avatar)
+                                    <button type="button" 
+                                            onclick="if(confirm('Yakin ingin menghapus foto profil ini?')) document.getElementById('deleteAvatarForm').submit();"
+                                            class="px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 border border-rose-200 rounded-xl transition-colors shrink-0">
+                                        <i class="bi bi-trash"></i> Hapus Foto
+                                    </button>
                                 @endif
                             </div>
-                            <div class="flex-1 w-full space-y-1">
-                                <input type="file" name="avatar" id="avatar" accept="image/png, image/jpeg, image/webp"
-                                       class="block w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#002B49] file:text-white hover:file:bg-[#FF6600] file:transition-colors cursor-pointer">
-                                <p class="text-[10px] text-slate-400">Format: JPG, PNG, WEBP (Maksimal 2MB).</p>
-                            </div>
-                            @if($user->avatar)
-                                <button type="button" 
-                                        onclick="if(confirm('Yakin ingin menghapus foto profil ini?')) document.getElementById('deleteAvatarForm').submit();"
-                                        class="px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 border border-rose-200 rounded-xl transition-colors shrink-0">
-                                    <i class="bi bi-trash"></i> Hapus Foto
-                                </button>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Input Fields Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        
-                        <!-- Nama Lengkap -->
-                        <div class="space-y-1.5">
-                            <label for="name" class="block text-xs font-bold text-slate-700">Nama Lengkap <span class="text-rose-500">*</span></label>
-                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                    <i class="bi bi-person"></i>
-                                </span>
-                                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
-                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
-                            </div>
                         </div>
 
-                        <!-- Email -->
-                        <div class="space-y-1.5">
-                            <label for="email" class="block text-xs font-bold text-slate-700">Alamat Email <span class="text-rose-500">*</span></label>
-                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                    <i class="bi bi-envelope"></i>
-                                </span>
-                                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required
-                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                        <!-- Input Fields Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            
+                            <!-- Nama Lengkap -->
+                            <div class="space-y-1.5">
+                                <label for="name" class="block text-xs font-bold text-slate-700">Nama Lengkap <span class="text-rose-500">*</span></label>
+                                <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                    <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+                                    <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required
+                                           class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- No. Telepon / WhatsApp -->
-                        <div class="space-y-1.5">
-                            <label for="phone" class="block text-xs font-bold text-slate-700">Nomor HP / WhatsApp</label>
-                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                    <i class="bi bi-telephone"></i>
-                                </span>
-                                <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" placeholder="Contoh: 081234567890"
-                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                            <!-- Email -->
+                            <div class="space-y-1.5">
+                                <label for="email" class="block text-xs font-bold text-slate-700">Alamat Email <span class="text-rose-500">*</span></label>
+                                <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                    <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                    <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required
+                                           class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Jabatan -->
-                        <div class="space-y-1.5">
-                            <label for="position" class="block text-xs font-bold text-slate-700">Jabatan / Posisi</label>
-                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                    <i class="bi bi-briefcase"></i>
-                                </span>
-                                <input type="text" name="position" id="position" value="{{ old('position', $user->position) }}" placeholder="Contoh: Staff Keuangan"
-                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                            <!-- No. Telepon / WhatsApp -->
+                            <div class="space-y-1.5">
+                                <label for="phone" class="block text-xs font-bold text-slate-700">Nomor HP / WhatsApp</label>
+                                <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                    <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                        <i class="bi bi-telephone"></i>
+                                    </span>
+                                    <input type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" placeholder="Contoh: 081234567890"
+                                           class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Unit / Departemen -->
-                        <div class="md:col-span-2 space-y-1.5">
-                            <label for="department" class="block text-xs font-bold text-slate-700">Unit Kerja / Departemen</label>
-                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                    <i class="bi bi-building"></i>
-                                </span>
-                                <input type="text" name="department" id="department" value="{{ old('department', $user->department) }}" placeholder="Contoh: Regional 4 Semarang - PT Pos Indonesia"
-                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                            <!-- Jabatan -->
+                            <div class="space-y-1.5">
+                                <label for="position" class="block text-xs font-bold text-slate-700">Jabatan / Posisi</label>
+                                <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                    <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                        <i class="bi bi-briefcase"></i>
+                                    </span>
+                                    <input type="text" name="position" id="position" value="{{ old('position', $user->position) }}" placeholder="Contoh: Staff Keuangan"
+                                           class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                                </div>
+                            </div>
+
+                            <!-- Unit / Departemen -->
+                            <div class="md:col-span-2 space-y-1.5">
+                                <label for="department" class="block text-xs font-bold text-slate-700">Unit Kerja / Departemen</label>
+                                <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                    <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+                                    <input type="text" name="department" id="department" value="{{ old('department', $user->department) }}" placeholder="Contoh: Regional 4 Semarang - PT Pos Indonesia"
+                                           class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="pt-4 border-t border-slate-100 flex justify-end">
+                    <div class="pt-4 border-t border-slate-100 flex justify-end mt-auto">
                         <button type="submit" 
                                 class="px-5 py-2.5 bg-[#FF6600] hover:bg-[#e55c00] text-white font-bold text-xs rounded-xl shadow-md shadow-orange-500/20 transition-all flex items-center gap-2">
                             <i class="bi bi-save"></i> Simpan Perubahan Profil
@@ -295,79 +297,81 @@
         </div>
 
         <!-- Right 1 Column: Password Change & System Access Summary -->
-        <div class="space-y-6">
+        <div class="flex flex-col justify-between gap-6">
 
             <!-- Password Change Form -->
-            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md p-6">
-                <div class="border-b border-slate-100 pb-4 mb-5">
-                    <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
-                        <i class="bi bi-shield-lock text-[#FF6600]"></i> Keamanan & Password
-                    </h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Ubah password akun Anda secara berkala.</p>
+            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md p-6 flex-1 flex flex-col justify-between">
+                <div>
+                    <div class="border-b border-slate-100 pb-4 mb-5">
+                        <h3 class="text-base font-extrabold text-slate-800 flex items-center gap-2">
+                            <i class="bi bi-shield-lock text-[#FF6600]"></i> Keamanan & Password
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Ubah password akun Anda secara berkala.</p>
+                    </div>
+
+                    <form id="passwordForm" action="{{ route('profile.password.update') }}" method="POST" class="space-y-4">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- Password Saat Ini -->
+                        <div class="space-y-1.5">
+                            <label for="current_password" class="block text-xs font-bold text-slate-700">Password Saat Ini <span class="text-rose-500">*</span></label>
+                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                    <i class="bi bi-key"></i>
+                                </span>
+                                <input type="password" name="current_password" id="current_password" required
+                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent"
+                                       placeholder="Masukkan password lama">
+                            </div>
+                        </div>
+
+                        <!-- Password Baru -->
+                        <div class="space-y-1.5">
+                            <label for="password" class="block text-xs font-bold text-slate-700">Password Baru <span class="text-rose-500">*</span></label>
+                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                    <i class="bi bi-lock-fill text-slate-400"></i>
+                                </span>
+                                <input type="password" name="password" id="password" required
+                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent"
+                                       placeholder="Minimal 8 karakter">
+                            </div>
+                        </div>
+
+                        <!-- Konfirmasi Password Baru -->
+                        <div class="space-y-1.5">
+                            <label for="password_confirmation" class="block text-xs font-bold text-slate-700">Konfirmasi Password Baru <span class="text-rose-500">*</span></label>
+                            <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
+                                <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
+                                    <i class="bi bi-shield-check text-slate-400"></i>
+                                </span>
+                                <input type="password" name="password_confirmation" id="password_confirmation" required
+                                       class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent"
+                                       placeholder="Ulangi password baru">
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
-                <form action="{{ route('profile.password.update') }}" method="POST" class="space-y-4">
-                    @csrf
-                    @method('PUT')
-
-                    <!-- Password Saat Ini -->
-                    <div class="space-y-1.5">
-                        <label for="current_password" class="block text-xs font-bold text-slate-700">Password Saat Ini <span class="text-rose-500">*</span></label>
-                        <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                            <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                <i class="bi bi-key"></i>
-                            </span>
-                            <input type="password" name="current_password" id="current_password" required
-                                   class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent"
-                                   placeholder="Masukkan password lama">
-                        </div>
-                    </div>
-
-                    <!-- Password Baru -->
-                    <div class="space-y-1.5">
-                        <label for="password" class="block text-xs font-bold text-slate-700">Password Baru <span class="text-rose-500">*</span></label>
-                        <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                            <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                <i class="bi bi-lock-fill text-slate-400"></i>
-                            </span>
-                            <input type="password" name="password" id="password" required
-                                   class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent"
-                                   placeholder="Minimal 8 karakter">
-                        </div>
-                    </div>
-
-                    <!-- Konfirmasi Password Baru -->
-                    <div class="space-y-1.5">
-                        <label for="password_confirmation" class="block text-xs font-bold text-slate-700">Konfirmasi Password Baru <span class="text-rose-500">*</span></label>
-                        <div class="flex items-center rounded-xl border border-slate-200 bg-white focus-within:border-[#FF6600] focus-within:ring-1 focus-within:ring-[#FF6600] transition-colors overflow-hidden">
-                            <span class="pl-3.5 pr-2 text-slate-400 text-sm flex items-center shrink-0">
-                                <i class="bi bi-shield-check text-slate-400"></i>
-                            </span>
-                            <input type="password" name="password_confirmation" id="password_confirmation" required
-                                   class="w-full py-2.5 pr-3 text-xs font-semibold text-slate-800 focus:outline-none bg-transparent"
-                                   placeholder="Ulangi password baru">
-                        </div>
-                    </div>
-
-                    <!-- Submit Password Button -->
-                    <div class="pt-2">
-                        <button type="submit" 
-                                class="w-full py-2.5 bg-[#002B49] hover:bg-[#001d32] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
-                            <i class="bi bi-shield-check"></i> Perbarui Password
-                        </button>
-                    </div>
-                </form>
+                <!-- Submit Password Button (pushed to bottom of card) -->
+                <div class="pt-4 mt-2">
+                    <button type="submit" form="passwordForm"
+                            class="w-full py-2.5 bg-[#002B49] hover:bg-[#001d32] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                        <i class="bi bi-shield-check"></i> Perbarui Password
+                    </button>
+                </div>
             </div>
 
             <!-- Detail Akses Sistem Card -->
-            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md p-6 space-y-4">
+            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-md p-6 space-y-3 shrink-0">
                 <div class="border-b border-slate-100 pb-3">
                     <h3 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
                         <i class="bi bi-info-circle text-[#FF6600]"></i> Detail Akses Sistem
                     </h3>
                 </div>
 
-                <div class="space-y-3 text-xs">
+                <div class="space-y-2.5 text-xs">
                     <div class="flex items-center justify-between py-1 border-b border-slate-50">
                         <span class="text-slate-500">Peran / Role</span>
                         <span class="font-bold text-[#002B49] bg-slate-100 px-2.5 py-0.5 rounded-full">Administrator</span>
@@ -375,12 +379,6 @@
                     <div class="flex items-center justify-between py-1 border-b border-slate-50">
                         <span class="text-slate-500">Regional Kerja</span>
                         <span class="font-bold text-slate-700">Reg. 4 Semarang</span>
-                    </div>
-                    <div class="flex items-center justify-between py-1 border-b border-slate-50">
-                        <span class="text-slate-500">Enkripsi Keamanan</span>
-                        <span class="font-semibold text-emerald-600 flex items-center gap-1">
-                            <i class="bi bi-check-circle-fill text-[10px]"></i> Bcrypt (256-bit)
-                        </span>
                     </div>
                     <div class="flex items-center justify-between py-1">
                         <span class="text-slate-500">Status Akun</span>

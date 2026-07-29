@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +30,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
+            AuditLog::record('LOGIN', 'Pengguna berhasil login ke dalam sistem POS Finance.');
             return redirect()->intended(route('dashboard'));
         }
 
@@ -46,6 +48,7 @@ class AuthController extends Controller
     // Handle logout
     public function logout(Request $request)
     {
+        AuditLog::record('LOGOUT', 'Pengguna keluar (logout) dari sistem POS Finance.');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

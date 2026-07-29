@@ -25,9 +25,7 @@ class User extends Authenticatable
         'avatar',
     ];
 
-    /**
-     * Get the user's avatar URL or fallback.
-     */
+    // Get the user's avatar URL or fallback.
     public function getAvatarUrlAttribute(): ?string
     {
         if ($this->avatar) {
