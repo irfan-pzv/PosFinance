@@ -55,12 +55,16 @@
             <div class="relative">
                 <button id="userMenuBtn" type="button" 
                         class="w-9 h-9 p-0 flex items-center justify-center rounded-full hover:bg-white/10 border border-white/20 transition-all focus:outline-none md:w-auto md:h-auto md:p-1 md:pl-1 md:pr-2.5 md:gap-2.5 shrink-0">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF6600] to-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">
-                        {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF6600] to-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0 overflow-hidden">
+                        @if(Auth::user() && Auth::user()->avatar_url)
+                            <img src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+                        @else
+                            {{ strtoupper(substr(Auth::user()->name ?? 'A', 0, 1)) }}
+                        @endif
                     </div>
                     <div class="text-left hidden md:block">
                         <div class="font-bold text-white text-xs leading-tight">{{ Auth::user()->name ?? 'Administrator' }}</div>
-                        <div class="text-white/60 text-[10px]">Keuangan Regional 4 Semarang</div>
+                        <div class="text-white/60 text-[10px]">{{ Auth::user()->position ?? 'Keuangan Regional 4 Semarang' }}</div>
                     </div>
                     <i class="bi bi-chevron-down text-white/60 text-[10px] hidden md:block"></i>
                 </button>
@@ -71,10 +75,10 @@
                     <div class="px-4 py-2.5 border-b border-slate-100 bg-slate-50/50 rounded-t-2xl">
                         <p class="font-bold text-slate-800 text-xs">{{ Auth::user()->name ?? 'Administrator' }}</p>
                         <p class="text-slate-400 text-[11px] truncate">{{ Auth::user()->email ?? 'admin@posfinance.co.id' }}</p>
-                        <p class="text-[#FF6600] font-semibold text-[10px] mt-0.5">Pos Indonesia Regional 4 Semarang</p>
+                        <p class="text-[#FF6600] font-semibold text-[10px] mt-0.5">{{ Auth::user()->department ?? 'Pos Indonesia Regional 4 Semarang' }}</p>
                     </div>
-                    <a href="#" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors">
-                        <i class="bi bi-person text-slate-400 text-sm"></i> Profil Pengguna
+                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors {{ request()->routeIs('profile.*') ? 'bg-orange-50/70 text-[#FF6600] font-bold' : '' }}">
+                        <i class="bi bi-person text-[#FF6600] text-sm"></i> Profil Pengguna
                     </a>
                     <a href="#" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors">
                         <i class="bi bi-sliders text-slate-400 text-sm"></i> Pengaturan Sistem

@@ -75,6 +75,25 @@
                 <span class="px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-orange-100 text-[#FF6600]">AI</span>
             </a>
         </nav>
+
+        <!-- Section Header 2: Akun & Profil -->
+        <div class="uppercase text-slate-400 font-bold mt-6 mb-3 px-2 text-[10px] tracking-widest flex items-center justify-between">
+            <span>Pengaturan Akun</span>
+            <span class="w-1.5 h-1.5 bg-slate-300 rounded-full"></span>
+        </div>
+
+        <nav class="space-y-1">
+            <a href="{{ route('profile.edit') }}" 
+               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl {{ request()->routeIs('profile.*') ? 'bg-[#FF6600] text-white shadow-md shadow-orange-500/20' : 'text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600]' }} transition-all group">
+                <div class="flex items-center gap-3">
+                    <i class="bi bi-person-circle text-base {{ request()->routeIs('profile.*') ? 'text-white' : 'text-slate-400 group-hover:text-[#FF6600]' }}"></i>
+                    <span>Profil Pengguna</span>
+                </div>
+                @if(request()->routeIs('profile.*'))
+                    <i class="bi bi-chevron-right text-[10px] opacity-75"></i>
+                @endif
+            </a>
+        </nav>
     </div>
 
 </aside>
