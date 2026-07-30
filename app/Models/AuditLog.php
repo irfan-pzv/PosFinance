@@ -20,17 +20,13 @@ class AuditLog extends Model
         'user_agent',
     ];
 
-    /**
-     * Relationship to User model.
-     */
+    // Relationship to User model.
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Helper static method to record an audit log entry.
-     */
+    // Helper method to record an audit log entry.
     public static function record(string $action, string $description, ?User $user = null): self
     {
         $user = $user ?? Auth::user();
