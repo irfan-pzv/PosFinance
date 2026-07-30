@@ -18,6 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role',
         'password',
         'phone',
         'position',
@@ -32,6 +33,37 @@ class User extends Authenticatable
             return asset('storage/' . $this->avatar);
         }
         return null;
+    }
+
+    // Role Helper Methods
+    public function isManager(): bool
+    {
+        return $this->role === 'manager';
+    }
+
+    public function isStaff(): bool
+    {
+        return $this->role === 'staff';
+    }
+
+    public function isSupervisor(): bool
+    {
+        return $this->role === 'supervisor';
+    }
+
+    public function canApprove(): bool
+    {
+        return in_array($this->role, ['manager', 'supervisor']);
+    }
+
+    public function getRoleLabelAttribute(): string
+    {
+        return match($this->role) {
+            'manager' => 'Manajer Keuangan',
+            'supervisor' => 'Supervisor Keuangan',
+            'staff' => 'Staff Keuangan',
+            default => 'Staff Keuangan',
+        };
     }
 
     // The attributes that should be hidden for serialization.

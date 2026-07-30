@@ -16,6 +16,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/revenue-streams', [RevenueStreamController::class, 'index'])->name('revenue-streams.index');
     Route::post('/revenue-streams', [RevenueStreamController::class, 'store'])->name('revenue-streams.store');
+    Route::post('/revenue-streams/{revenueStream}/approve', [RevenueStreamController::class, 'approve'])->name('revenue-streams.approve');
+    Route::post('/revenue-streams/{revenueStream}/reject', [RevenueStreamController::class, 'reject'])->name('revenue-streams.reject');
     Route::delete('/revenue-streams/{revenueStream}', [RevenueStreamController::class, 'destroy'])->name('revenue-streams.destroy');
 
     Route::get('/units', [UnitController::class, 'index'])->name('units.index');

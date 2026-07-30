@@ -63,8 +63,10 @@
                         @endif
                     </div>
                     <div class="text-left hidden md:block">
-                        <div class="font-bold text-white text-xs leading-tight">{{ Auth::user()->name ?? 'Administrator' }}</div>
-                        <div class="text-white/60 text-[10px]">{{ Auth::user()->position ?? 'Keuangan Regional 4 Semarang' }}</div>
+                        <div class="font-bold text-white text-xs leading-tight flex items-center gap-1">
+                            {{ Auth::user()->name ?? 'Administrator' }}
+                        </div>
+                        <div class="text-amber-400 text-[10px] font-semibold">{{ Auth::user()->role_label ?? 'Keuangan' }}</div>
                     </div>
                     <i class="bi bi-chevron-down text-white/60 text-[10px] hidden md:block"></i>
                 </button>
@@ -73,16 +75,23 @@
                 <div id="userMenuDropdown" 
                      class="hidden absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 py-2 z-50 text-slate-700 text-xs">
                     <div class="px-4 py-2.5 border-b border-slate-100 bg-slate-50/50 rounded-t-2xl">
-                        <p class="font-bold text-slate-800 text-xs">{{ Auth::user()->name ?? 'Administrator' }}</p>
+                        <div class="flex items-center justify-between gap-1 mb-0.5">
+                            <p class="font-bold text-slate-800 text-xs">{{ Auth::user()->name ?? 'Administrator' }}</p>
+                            <span class="px-1.5 py-0.5 text-[9px] font-extrabold rounded bg-orange-100 text-[#FF6600]">
+                                {{ strtoupper(Auth::user()->role ?? 'USER') }}
+                            </span>
+                        </div>
                         <p class="text-slate-400 text-[11px] truncate">{{ Auth::user()->email ?? 'admin@posfinance.co.id' }}</p>
                         <p class="text-[#FF6600] font-semibold text-[10px] mt-0.5">{{ Auth::user()->department ?? 'Pos Indonesia Regional 4 Semarang' }}</p>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors {{ request()->routeIs('profile.*') ? 'bg-orange-50/70 text-[#FF6600] font-bold' : '' }}">
                         <i class="bi bi-person text-[#FF6600] text-sm"></i> Profil Pengguna
                     </a>
-                    <a href="{{ route('audit-logs.index') }}" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors {{ request()->routeIs('audit-logs.*') ? 'bg-orange-50/70 text-[#FF6600] font-bold' : '' }}">
-                        <i class="bi bi-shield-check text-[#FF6600] text-sm"></i> Audit Log & Akses
-                    </a>
+                    @if(Auth::user() && Auth::user()->canApprove())
+                        <a href="{{ route('audit-logs.index') }}" class="flex items-center gap-2.5 px-4 py-2 hover:bg-slate-50 text-slate-600 hover:text-[#002B49] font-medium transition-colors {{ request()->routeIs('audit-logs.*') ? 'bg-orange-50/70 text-[#FF6600] font-bold' : '' }}">
+                            <i class="bi bi-shield-check text-[#FF6600] text-sm"></i> Audit Log & Akses
+                        </a>
+                    @endif
                     <div class="border-t border-slate-100 my-1.5"></div>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf

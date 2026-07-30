@@ -30,11 +30,13 @@
                class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/80 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition-all hover:border-slate-300">
                 <i class="bi bi-arrow-left text-slate-400"></i> Kembali ke Dashboard
             </a>
-            <button type="button" 
-                    onclick="openAddModal()" 
-                    class="bg-[#FF6600] hover:bg-[#E55C00] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-orange-500/20 transition-all hover:scale-[1.02]">
-                <i class="bi bi-plus-circle"></i> Tambah Unit Baru
-            </button>
+            @if(Auth::user() && Auth::user()->canApprove())
+                <button type="button" 
+                        onclick="openAddModal()" 
+                        class="bg-[#FF6600] hover:bg-[#E55C00] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-orange-500/20 transition-all hover:scale-[1.02]">
+                    <i class="bi bi-plus-circle"></i> Tambah Unit Baru
+                </button>
+            @endif
         </div>
     </div>
 
@@ -298,18 +300,24 @@
                                 @endif
                             </td>
                             <td class="py-3.5 px-4 text-center">
-                                <div class="flex items-center justify-center gap-1.5">
-                                    <button type="button" 
-                                            onclick='openEditModal(@json($unit), @json($latestFinance))'
-                                            class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-orange-100 hover:text-[#FF6600] text-slate-600 flex items-center justify-center transition-all shadow-sm">
-                                        <i class="bi bi-pencil-square text-xs"></i>
-                                    </button>
-                                    <button type="button" 
-                                            onclick="openDeleteModal({{ $unit->id }}, '{{ addslashes($unit->name) }}')"
-                                            class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-red-100 hover:text-red-600 text-slate-600 flex items-center justify-center transition-all shadow-sm">
-                                        <i class="bi bi-trash text-xs"></i>
-                                    </button>
-                                </div>
+                                @if(Auth::user() && Auth::user()->canApprove())
+                                    <div class="flex items-center justify-center gap-1.5">
+                                        <button type="button" 
+                                                onclick='openEditModal(@json($unit), @json($latestFinance))'
+                                                class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-orange-100 hover:text-[#FF6600] text-slate-600 flex items-center justify-center transition-all shadow-sm"
+                                                title="Edit Unit">
+                                            <i class="bi bi-pencil-square text-xs"></i>
+                                        </button>
+                                        <button type="button" 
+                                                onclick="openDeleteModal({{ $unit->id }}, '{{ addslashes($unit->name) }}')"
+                                                class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-red-100 hover:text-red-600 text-slate-600 flex items-center justify-center transition-all shadow-sm"
+                                                title="Hapus Unit">
+                                            <i class="bi bi-trash text-xs"></i>
+                                        </button>
+                                    </div>
+                                @else
+                                    <span class="text-[10px] text-slate-400 italic">Lihat Saja</span>
+                                @endif
                             </td>
                         </tr>
                     @empty

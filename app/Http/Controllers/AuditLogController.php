@@ -8,11 +8,13 @@ use Illuminate\Support\Carbon;
 
 class AuditLogController extends Controller
 {
-    /**
-     * Display a listing of system audit logs.
-     */
+    // Display a listing of system audit logs.
     public function index(Request $request)
     {
+        if (!$request->user() || !$request->user()->canApprove()) {
+            return redirect()->route('dashboard')->with('error', 'Akses ditolak. Fitur Audit Log & Akses hanya dapat diakses oleh Manajer dan Supervisor Keuangan.');
+        }
+
         $query = AuditLog::with('user')->latest();
 
         // Search filter

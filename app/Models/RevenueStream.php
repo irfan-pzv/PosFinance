@@ -22,10 +22,27 @@ class RevenueStream extends Model
         'growth_rate',
         'period',
         'status',
+        'proof_file',
+        'approval_status',
+        'rejection_reason',
+        'approved_by',
     ];
 
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function getProofFileUrlAttribute(): ?string
+    {
+        if ($this->proof_file) {
+            return asset('storage/' . $this->proof_file);
+        }
+        return null;
     }
 }

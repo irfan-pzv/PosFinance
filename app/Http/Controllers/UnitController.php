@@ -63,6 +63,10 @@ class UnitController extends Controller
     // Store a newly created Regional 4 unit.
     public function store(Request $request)
     {
+        if (!Auth::user() || !Auth::user()->canApprove()) {
+            return back()->with('error', 'Akses ditolak. Hanya Manajer dan Supervisor Keuangan yang memiliki hak akses untuk menambah Unit Kerja baru.');
+        }
+
         $validated = $request->validate([
             'code' => ['required', 'string', 'max:50', 'unique:units,code'],
             'name' => ['required', 'string', 'max:255'],
@@ -117,6 +121,10 @@ class UnitController extends Controller
     // Update the specified Regional 4 unit.
     public function update(Request $request, Unit $unit)
     {
+        if (!Auth::user() || !Auth::user()->canApprove()) {
+            return back()->with('error', 'Akses ditolak. Hanya Manajer dan Supervisor Keuangan yang memiliki hak akses untuk mengubah data Unit.');
+        }
+
         $validated = $request->validate([
             'code' => ['required', 'string', 'max:50', Rule::unique('units', 'code')->ignore($unit->id)],
             'name' => ['required', 'string', 'max:255'],
@@ -182,6 +190,10 @@ class UnitController extends Controller
     // Remove the specified Regional 4 unit.
     public function destroy(Unit $unit)
     {
+        if (!Auth::user() || !Auth::user()->canApprove()) {
+            return back()->with('error', 'Akses ditolak. Hanya Manajer dan Supervisor Keuangan yang memiliki hak akses untuk menghapus data Unit.');
+        }
+
         $unit->finances()->delete();
         $unit->revenueStreams()->delete();
         $unit->delete();

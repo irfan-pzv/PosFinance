@@ -66,14 +66,16 @@
                 </div>
             </a>
 
-            <a href="#" 
-               class="flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600] transition-all group">
-                <div class="flex items-center gap-3">
-                    <i class="bi bi-cpu text-base text-slate-400 group-hover:text-[#FF6600] transition-colors"></i>
-                    <span>Predictive Analytics</span>
-                </div>
-                <span class="px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-orange-100 text-[#FF6600]">AI</span>
-            </a>
+            @if(Auth::user() && Auth::user()->canApprove())
+                <a href="#" 
+                   class="flex items-center justify-between px-3.5 py-2.5 text-xs font-semibold rounded-xl text-slate-600 hover:bg-orange-50/70 hover:text-[#FF6600] transition-all group">
+                    <div class="flex items-center gap-3">
+                        <i class="bi bi-cpu text-base text-slate-400 group-hover:text-[#FF6600] transition-colors"></i>
+                        <span>Predictive Analytics</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 text-[9px] font-bold uppercase rounded bg-orange-100 text-[#FF6600]">AI</span>
+                </a>
+            @endif
         </nav>
     </div>
 
